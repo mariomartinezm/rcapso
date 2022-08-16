@@ -1,20 +1,21 @@
 #' Plots the mean field approximation of the capso model.
-#' @param N The number of iterations to simulate.
+#' @param num_iter The number of iterations to simulate.
 #' @param psi0 The initial density of the prey population.
 #' @param phi0 The initial density of the predator population.
 #' @param alpha The intraspecific competition coefficient.
-#' @param ey The reproductive capacity capacity of preys.
+#' @param ey The reproductive capacity of preys.
 #' @param ry The radius of the prey's reproduction neighborhood.
-#' @param ez The reproductive capacity capacity of predators.
+#' @param ez The reproductive capacity of predators.
 #' @param rz The radius of the predator's reproduction neighborhood.
-#' @param a The ordinate of the line that defines predator mortality.
-#' @param b The slope of the line that defines predator mortality.
-#' @param c The slope of the line that defines prey mortality.
+#' @param a The coefficient of the line that defines predator mortality.
+#' @param b The intercept of the line that defines predator mortality.
+#' @param d The coefficient of the line that defines prey mortality.
+#' @param e The intercept of the line that defines prey mortality.
 #' @return The numeric vectors of preys and predators.
 #' @export
 capso_mean_field <- function(num_iter = 100, psi0 = 1, phi0 = 0.01, alpha = 0.1,
                              ey = 1, ry = 1, ez = 1, rz = 1,
-                             a = -1, b = 1, c = 1, d = 0) {
+                             a = -1, b = 1, d = 1, e = 0) {
   # Initialize data structures
   index_set <- seq(from=1, to=num_iter, by=1)
   psi       <- numeric(length(index_set))
@@ -45,7 +46,7 @@ capso_mean_field <- function(num_iter = 100, psi0 = 1, phi0 = 0.01, alpha = 0.1,
     phi[t + 1] <- phi_r - (b + a * psi_ic) * phi_r
 
     # Death Of Preys
-    psi_d <- psi_ic - (d + c * phi[t + 1]) * psi_ic
+    psi_d <- psi_ic - (e + d * phi[t + 1]) * psi_ic
 
     # Reproduction of preys
     num_preys         <- card_mry * psi_d
