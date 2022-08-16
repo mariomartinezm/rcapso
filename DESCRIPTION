@@ -1,12 +1,10 @@
 Package: capso
-Title: What the Package Does (One Line, Title Case)
+Title: Functions to analize the behavior of the CAPSO model
 Version: 0.0.0.9000
 Authors@R: 
-    person("First", "Last", , "first.last@example.com", role = c("aut", "cre"),
-           comment = c(ORCID = "YOUR-ORCID-ID"))
-Description: What the package does (one paragraph).
-License: `use_mit_license()`, `use_gpl3_license()` or friends to pick a
-    license
+    person("Mario", "Martínez", , "mariomartinezmolina@live.com", role = c("aut", "cre"))
+Description: This package contains several functions to simulate the mean field approximations of the CAPSO model. It also provides several plotting facilities to analyze the dynamics of preys and predators.
+License: GPL (>= 3)
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.1
