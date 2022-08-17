@@ -55,5 +55,5 @@ capso_mean_field <- function(num_iter = 100, psi0 = 1, phi0 = 0.01, alpha = 0.1,
                                                 max_num_of_births)
   }
 
-  list(psi, phi)
+  cbind(psi, phi)
 }
