@@ -11,7 +11,8 @@
 #' @param b The intercept of the line that defines predator mortality.
 #' @param d The coefficient of the line that defines prey mortality.
 #' @param e The intercept of the line that defines prey mortality.
-#' @return The numeric vectors of preys and predators.
+#' @return A 2-column matrix, the first column corresponds to preys, the second
+#' column corresponds to predators.
 #' @export
 capso_mean_field <- function(num_iter = 100, psi0 = 1, phi0 = 0.01, alpha = 0.1,
                              ey = 1, ry = 1, ez = 1, rz = 1,
