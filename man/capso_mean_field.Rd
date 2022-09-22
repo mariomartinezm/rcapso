@@ -45,8 +45,8 @@ capso_mean_field(
 \item{e}{The intercept of the line that defines prey mortality.}
 }
 \value{
-A 2-column matrix, the first column corresponds to preys, the second
-column corresponds to predators.
+A 2-column data frame containing the time series of preys and
+predators.
 }
 \description{
 Gets the mean field approximation of the CAPSO model.
