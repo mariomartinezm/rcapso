@@ -2,3 +2,4 @@
 
 export(capso_mean_field)
 export(capso_phase_plot)
+export(capso_plot_prey_pred_data)
