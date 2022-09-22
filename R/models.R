@@ -1,4 +1,4 @@
-#' Plots the mean field approximation of the capso model.
+#' Gets the mean field approximation of the CAPSO model.
 #' @param num_iter The number of iterations to simulate.
 #' @param psi0 The initial density of the prey population.
 #' @param phi0 The initial density of the predator population.

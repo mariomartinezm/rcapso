@@ -2,7 +2,7 @@
 % Please edit documentation in R/models.R
 \name{capso_mean_field}
 \alias{capso_mean_field}
-\title{Plots the mean field approximation of the capso model.}
+\title{Gets the mean field approximation of the CAPSO model.}
 \usage{
 capso_mean_field(
   num_iter = 100,
@@ -49,5 +49,5 @@ A 2-column matrix, the first column corresponds to preys, the second
 column corresponds to predators.
 }
 \description{
-Plots the mean field approximation of the capso model.
+Gets the mean field approximation of the CAPSO model.
 }
