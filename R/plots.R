@@ -48,3 +48,39 @@ capso_phase_plot <- function(data, title="", xlabel="", ylabel="") {
     ggplot2::labs(x = xlabel, y = ylabel, title = title) +
     theme
 }
+
+#' Plots the Fourier spectrum of a time series.
+#' @param x A numeric vector containing the data of the time series.
+#' @param method_spec String specifying the method used to estimate the
+#' spectral density.
+#' @return A list containing the cycles sorted in order of magnitude of the
+#' power spikes.
+#' @export
+capso_plot_fourier_spectrum <- function(x, method_spec) {
+  if(method_spec) {
+    spec_out <- stats::spectrum(x, method = "ar")
+  }
+  else {
+    spec_out <- stats::spectrum(x, method = "pgram")
+  }
+
+  power     <- spec_out$spec      # Spectral values (vertical axis of plots)
+  frequency <- spec_out$freq      # Frequencies on horizontal axis of plot
+  cycle     <- 1 / frequency
+
+  # Sort cycles in order of magnitude of power spikes
+  hold <- matrix(0, (length(power) - 2), 1)
+  for(i in 1:(length(power) - 2)) {
+    max1     <- if(power[i + 1] > power[i] && power[i + 1] > power[i + 2]) 1 else (0)
+    hold[i,] <- max1
+  }
+
+  max <- which(hold == 1) + 1
+  power_max <- power[max]
+  cycle_max <- cycle[max]
+  o <- order(power_max, decreasing = TRUE)
+  cycle_max_o <- cycle_max[o]
+  results <- list(cycle_max_o)
+
+  return(results)
+}
