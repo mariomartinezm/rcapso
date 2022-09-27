@@ -1,26 +1,31 @@
-theme <- ggplot2::theme(plot.title =
+#' Gets the capso theme for ggplot
+#' @return The theme object for the custom ggplot2 theme.
+capso_get_theme <- function() {
+  theme <- ggplot2::theme(plot.title =
                           ggplot2::element_text(face = "bold.italic",
                                                 size = 14,
                                                 color = "black"),
-                        axis.title =
-                          ggplot2::element_text(face = "bold",
-                                                size = 12,
-                                                color = "black"),
-                        axis.text =
-                          ggplot2::element_text(face = "bold",
-                                                size = 9,
-                                                color = "black"),
-                        panel.background =
-                          ggplot2::element_rect(fill = "white",
-                                                color = "white"),
-                        panel.grid.major.x =
-                          ggplot2::element_line(color = "lightgray"),
-                        panel.grid.major.y =
-                          ggplot2::element_line(color = "lightgray"),
-                        panel.grid.minor.x =
-                          ggplot2::element_line(color = "lightgray"),
-                        panel.grid.minor.y =
-                          ggplot2::element_line(color = "lightgray"))
+                          axis.title =
+                            ggplot2::element_text(face = "bold",
+                                                  size = 12,
+                                                  color = "black"),
+                          axis.text =
+                            ggplot2::element_text(face = "bold",
+                                                  size = 9,
+                                                  color = "black"),
+                          panel.background =
+                            ggplot2::element_rect(fill = "white",
+                                                  color = "white"),
+                          panel.grid.major.x =
+                            ggplot2::element_line(color = "lightgray"),
+                          panel.grid.major.y =
+                            ggplot2::element_line(color = "lightgray"),
+                          panel.grid.minor.x =
+                            ggplot2::element_line(color = "lightgray"),
+                          panel.grid.minor.y =
+                            ggplot2::element_line(color = "lightgray"))
+  return(theme)
+}
 
 #' Plots the time series of preys and predators.
 #' @param data A two-column matrix containing the data of preys and predators.
@@ -40,7 +45,7 @@ capso_plot_prey_pred_data <- function(data, title = "",
                        ggplot2::aes(index_set, y = data[, 2]),
                        color = "red", size = 1) +
     ggplot2::labs(x = xlabel, y = ylabel, title = title) +
-    theme
+    capso_get_theme()
 }
 
 #' Plots the phase plot of two time series contained in parameter data
@@ -57,7 +62,7 @@ capso_plot_phase <- function(data, title = "", xlabel = "", ylabel = "") {
                         fill = "#69b3a2",
                         size = 4) +
     ggplot2::labs(x = xlabel, y = ylabel, title = title) +
-    theme
+    capso_get_theme()
 }
 
 #' Plots the Fourier spectrum of a time series.
