@@ -1,4 +1,5 @@
 #' Gets the mean field approximation of the CAPSO model.
+#'
 #' @param num_iter The number of iterations to simulate.
 #' @param psi0 The initial density of the prey population.
 #' @param phi0 The initial density of the predator population.
@@ -11,6 +12,7 @@
 #' @param b The intercept of the line that defines predator mortality.
 #' @param d The coefficient of the line that defines prey mortality.
 #' @param e The intercept of the line that defines prey mortality.
+#'
 #' @return A 2-column data frame containing the time series of preys and
 #' predators.
 #' @export

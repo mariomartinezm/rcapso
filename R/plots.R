@@ -1,4 +1,5 @@
 #' Gets the capso theme for ggplot
+#'
 #' @return The theme object for the custom ggplot2 theme.
 capso_get_theme <- function() {
   theme <- ggplot2::theme(plot.title =
@@ -28,10 +29,12 @@ capso_get_theme <- function() {
 }
 
 #' Plots the time series of preys and predators.
+#'
 #' @param data A two-column matrix containing the data of preys and predators.
 #' @param title The title for the plot.
 #' @param xlabel The label for the x axis.
 #' @param ylabel The label for the y axis.
+#'
 #' @export
 capso_plot_prey_pred_data <- function(data, title = "",
                                       xlabel = "", ylabel = "") {
@@ -49,10 +52,12 @@ capso_plot_prey_pred_data <- function(data, title = "",
 }
 
 #' Plots the phase plot of two time series contained in parameter data
+#'
 #' @param data A two-column matrix containing two time series.
 #' @param title The title for the plot.
 #' @param xlabel The label for the x axis.
 #' @param ylabel The label for the y axis.
+#'
 #' @export
 capso_plot_phase <- function(data, title = "", xlabel = "", ylabel = "") {
   ggplot2::ggplot(data = data, ggplot2::aes(x = data[, 1], y = data[, 2])) +
@@ -66,11 +71,14 @@ capso_plot_phase <- function(data, title = "", xlabel = "", ylabel = "") {
 }
 
 #' Plots the Fourier spectrum of a time series.
+#'
 #' @param x A numeric vector containing the data of the time series.
 #' @param method_spec String specifying the method used to estimate the
 #' spectral density.
+#'
 #' @return A list containing the cycles sorted in order of magnitude of the
 #' power spikes.
+#'
 #' @export
 capso_plot_fourier_spectrum <- function(x, method_spec) {
   if (method_spec) {
