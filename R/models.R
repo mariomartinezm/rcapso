@@ -16,9 +16,10 @@
 #' @return A 2-column data frame containing the time series of preys and
 #' predators.
 #' @export
-capso_mean_field <- function(num_iter = 100, psi0 = 1, phi0 = 0.01, alpha = 0.1,
-                             ey = 1, ry = 1, ez = 1, rz = 1,
-                             a = -1, b = 1, d = 1, e = 0) {
+rcapso_mean_field <- function(num_iter = 100,
+                              psi0 = 1, phi0 = 0.01, alpha = 0.1,
+                              ey = 1, ry = 1, ez = 1, rz = 1,
+                              a = -1, b = 1, d = 1, e = 0) {
   # Initialize data structures
   index_set <- seq(from = 1, to = num_iter, by = 1)
   psi       <- numeric(length(index_set))

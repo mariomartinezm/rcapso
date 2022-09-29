@@ -1,4 +1,4 @@
-Package: capso
+Package: rcapso
 Title: Functions to analize the behavior of the CAPSO model
 Version: 0.0.0.9000
 Authors@R: 

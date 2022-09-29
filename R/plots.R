@@ -1,7 +1,7 @@
-#' Gets the capso theme for ggplot
+#' Gets the rcapso theme for ggplot
 #'
-#' @return The theme object for the custom ggplot2 theme.
-capso_get_theme <- function() {
+#' @return The ggplot2 theme object for the rcapso package.
+rcapso_get_theme <- function() {
   theme <- ggplot2::theme(plot.title =
                           ggplot2::element_text(face = "bold.italic",
                                                 size = 14,
@@ -36,7 +36,7 @@ capso_get_theme <- function() {
 #' @param ylabel The label for the y axis.
 #'
 #' @export
-capso_plot_prey_pred_data <- function(data, title = "",
+rcapso_plot_prey_pred_data <- function(data, title = "",
                                       xlabel = "", ylabel = "") {
   index_set <- 1:nrow(data)
 
@@ -48,7 +48,7 @@ capso_plot_prey_pred_data <- function(data, title = "",
                        ggplot2::aes(index_set, y = data[, 2]),
                        color = "red", size = 1) +
     ggplot2::labs(x = xlabel, y = ylabel, title = title) +
-    capso_get_theme()
+    rcapso_get_theme()
 }
 
 #' Plots the phase plot of two time series contained in parameter data
@@ -59,7 +59,7 @@ capso_plot_prey_pred_data <- function(data, title = "",
 #' @param ylabel The label for the y axis.
 #'
 #' @export
-capso_plot_phase <- function(data, title = "", xlabel = "", ylabel = "") {
+rcapso_plot_phase <- function(data, title = "", xlabel = "", ylabel = "") {
   ggplot2::ggplot(data = data, ggplot2::aes(x = data[, 1], y = data[, 2])) +
     ggplot2::geom_path(color = "black") +
     ggplot2::geom_point(shape = 21,
@@ -67,7 +67,7 @@ capso_plot_phase <- function(data, title = "", xlabel = "", ylabel = "") {
                         fill = "#69b3a2",
                         size = 4) +
     ggplot2::labs(x = xlabel, y = ylabel, title = title) +
-    capso_get_theme()
+    rcapso_get_theme()
 }
 
 #' Plots the Fourier spectrum of a time series.
@@ -80,7 +80,7 @@ capso_plot_phase <- function(data, title = "", xlabel = "", ylabel = "") {
 #' power spikes.
 #'
 #' @export
-capso_plot_fourier_spectrum <- function(x, method_spec) {
+rcapso_plot_fourier_spectrum <- function(x, method_spec) {
   if (method_spec) {
     spec_out <- stats::spectrum(x, method = "ar")
   } else {
