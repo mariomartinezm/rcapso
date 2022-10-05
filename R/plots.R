@@ -38,7 +38,7 @@ rcapso_get_theme <- function() {
 #' @export
 rcapso_plot_prey_pred_data <- function(data, title = "",
                                       xlabel = "", ylabel = "") {
-  index_set <- 1:nrow(data)
+  index_set <- seq_len(nrow(data))
 
   ggplot2::ggplot() +
     ggplot2::geom_line(data = data,
