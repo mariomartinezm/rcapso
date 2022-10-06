@@ -51,7 +51,7 @@ rcapso_plot_prey_pred_data <- function(data, cols = c("Preys", "Predators"),
   opar   <- graphics::par(no.readonly = TRUE)
   graphics::par()
 
-  index_set       <- seq_len(nrow(data))
+  index_set <- seq_len(nrow(data))
 
   if (normalize == TRUE) {
       data[, cols[1]] <- data[, cols[1]] / lat_size
