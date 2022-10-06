@@ -62,12 +62,12 @@ rcapso_plot_phase <- function(data, cols = c("Preys", "Predators"),
   }
 
   opar   <- graphics::par(no.readonly = TRUE)
-  graphics::par(ann=FALSE)
+  graphics::par(ann = FALSE)
 
-  plot(data[, cols[1]], data[, cols[2]], type="b")
+  plot(data[, cols[1]], data[, cols[2]], type = "b")
   graphics::title(main = title, xlab = cols[1], ylab = cols[2])
 
-  Hmisc::minor.tick(nx=5, ny=5, tick.ratio=0.5)
+  Hmisc::minor.tick(nx = 5, ny = 5, tick.ratio = 0.5)
 
   graphics::par(opar)
 }
