@@ -30,25 +30,46 @@ rcapso_get_theme <- function() {
 
 #' Plots the time series of preys and predators.
 #'
-#' @param data A two-column matrix containing the data of preys and predators.
+#' @param data A data.frame containing the time series of preys
+#' and predators.
+#' @param cols The columns in the dataframe that contain the
+#' time series of preys and predators.
 #' @param title The title for the plot.
 #' @param xlabel The label for the x axis.
 #' @param ylabel The label for the y axis.
+#' @param normalize TRUE if the data needs to be converted to a density.
+#' @param lat_size The size of the lattice (only used if normalize is TRUE).
 #'
 #' @export
-rcapso_plot_prey_pred_data <- function(data, title = "",
-                                      xlabel = "", ylabel = "") {
-  index_set <- seq_len(nrow(data))
+rcapso_plot_prey_pred_data <- function(data, cols = c("Preys", "Predators"),
+                                       title = "Prey-Predator time series",
+                                       xlabel = "Time (Seasons)",
+                                       ylabel = "Population density",
+                                       normalize = TRUE, lat_size = 262144) {
+  colors <- RColorBrewer::brewer.pal(12, "Paired")
 
-  ggplot2::ggplot() +
-    ggplot2::geom_line(data = data,
-                       ggplot2::aes(index_set, y = data[, 1]),
-                       color = "#69b3a2", size = 1) +
-    ggplot2::geom_line(data = data,
-                       ggplot2::aes(index_set, y = data[, 2]),
-                       color = "red", size = 1) +
-    ggplot2::labs(x = xlabel, y = ylabel, title = title) +
-    rcapso_get_theme()
+  opar   <- graphics::par(no.readonly = TRUE)
+  graphics::par()
+
+  index_set       <- seq_len(nrow(data))
+
+  if (normalize == TRUE) {
+      data[, cols[1]] <- data[, cols[1]] / lat_size
+      data[, cols[2]] <- data[, cols[2]] / lat_size
+  }
+
+  graphics::plot(index_set, data[, cols[1]], ylim = c(0, 1),
+                 type = "l", col = colors[4], lwd = 2,
+                 xlab = xlabel, ylab = ylabel)
+  graphics::lines(index_set, data[, cols[2]],
+                  type = "l", col = colors[6], lwd = 2)
+
+  graphics::title(main = title)
+
+  graphics::legend("topright", title = "Species:", cols, inset = 0.03,
+                   lty=c(1, 1), col = colors[c(4, 6)])
+
+  graphics::par(opar)
 }
 
 #' Plots the phase plot of two time series contained in parameter data

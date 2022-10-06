@@ -4,16 +4,32 @@
 \alias{rcapso_plot_prey_pred_data}
 \title{Plots the time series of preys and predators.}
 \usage{
-rcapso_plot_prey_pred_data(data, title = "", xlabel = "", ylabel = "")
+rcapso_plot_prey_pred_data(
+  data,
+  cols = c("Preys", "Predators"),
+  title = "Prey-Predator time series",
+  xlabel = "Time (Seasons)",
+  ylabel = "Population density",
+  normalize = TRUE,
+  lat_size = 262144
+)
 }
 \arguments{
-\item{data}{A two-column matrix containing the data of preys and predators.}
+\item{data}{A data.frame containing the time series of preys
+and predators.}
+
+\item{cols}{The columns in the dataframe that contain the
+time series of preys and predators.}
 
 \item{title}{The title for the plot.}
 
 \item{xlabel}{The label for the x axis.}
 
 \item{ylabel}{The label for the y axis.}
+
+\item{normalize}{TRUE if the data needs to be converted to a density.}
+
+\item{lat_size}{The size of the lattice (only used if normalize is TRUE).}
 }
 \description{
 Plots the time series of preys and predators.
