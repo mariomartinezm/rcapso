@@ -4,16 +4,26 @@
 \alias{rcapso_plot_phase}
 \title{Plots the phase plot of two time series contained in parameter data}
 \usage{
-rcapso_plot_phase(data, title = "", xlabel = "", ylabel = "")
+rcapso_plot_phase(
+  data,
+  cols = c("Preys", "Predators"),
+  title = "Phase Plot",
+  normalize = TRUE,
+  lat_size = 262144
+)
 }
 \arguments{
-\item{data}{A two-column matrix containing two time series.}
+\item{data}{A data.frame containing the time series whose phase plot should
+be obtained.}
+
+\item{cols}{The columns in the dataframe that contain the
+time series to be processed.}
 
 \item{title}{The title for the plot.}
 
-\item{xlabel}{The label for the x axis.}
+\item{normalize}{TRUE if the data needs to be converted to a density.}
 
-\item{ylabel}{The label for the y axis.}
+\item{lat_size}{The size of the lattice (only used if normalize is TRUE).}
 }
 \description{
 Plots the phase plot of two time series contained in parameter data

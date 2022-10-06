@@ -74,21 +74,32 @@ rcapso_plot_prey_pred_data <- function(data, cols = c("Preys", "Predators"),
 
 #' Plots the phase plot of two time series contained in parameter data
 #'
-#' @param data A two-column matrix containing two time series.
+#' @param data A data.frame containing the time series whose phase plot should
+#' be obtained.
+#' @param cols The columns in the dataframe that contain the
+#' time series to be processed.
 #' @param title The title for the plot.
-#' @param xlabel The label for the x axis.
-#' @param ylabel The label for the y axis.
+#' @param normalize TRUE if the data needs to be converted to a density.
+#' @param lat_size The size of the lattice (only used if normalize is TRUE).
 #'
 #' @export
-rcapso_plot_phase <- function(data, title = "", xlabel = "", ylabel = "") {
-  ggplot2::ggplot(data = data, ggplot2::aes(x = data[, 1], y = data[, 2])) +
-    ggplot2::geom_path(color = "black") +
-    ggplot2::geom_point(shape = 21,
-                        color = "black",
-                        fill = "#69b3a2",
-                        size = 4) +
-    ggplot2::labs(x = xlabel, y = ylabel, title = title) +
-    rcapso_get_theme()
+rcapso_plot_phase <- function(data, cols = c("Preys", "Predators"),
+                              title = "Phase Plot",
+                              normalize = TRUE, lat_size = 262144) {
+  if (normalize == TRUE) {
+    data[, cols[1]] <- data[, cols[1]] / lat_size
+    data[, cols[2]] <- data[, cols[2]] / lat_size
+  }
+
+  opar   <- graphics::par(no.readonly = TRUE)
+  graphics::par(ann=FALSE)
+
+  plot(data[, cols[1]], data[, cols[2]], type="b")
+  graphics::title(main = title, xlab = cols[1], ylab = cols[2])
+
+  Hmisc::minor.tick(nx=5, ny=5, tick.ratio=0.5)
+
+  graphics::par(opar)
 }
 
 #' Plots the Fourier spectrum of a time series.

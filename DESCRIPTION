@@ -11,4 +11,5 @@ RoxygenNote: 7.2.1
 Imports:
     ggplot2,
     RColorBrewer,
-    graphics
+    graphics,
+    Hmisc
