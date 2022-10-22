@@ -63,20 +63,19 @@ rcapso_mean_field <- function(num_iter = 100,
 }
 
 
-#' Calculates the mean growth rate of a population
+#' Calculates the mean field growth rate of a population
 #'
-#' @param n The length of the output vector.
+#' @param pop_data A numeric vector containing populatin density data.
 #' @param epsilon The reproductive capacity of the population.
 #' @param radius The reproductive capacity of the population.
 #'
-#' @return A numerical vector having the mean growth rate for n input values
-#' between 0 and 1 values.
+#' @return A numerical vector with the mean growth rate for every value in
+#' pop_data.
 #'
 #' @export
-rcapso_mean_field_growth_rate <- function(n = 100, epsilon = 1, radius = 1) {
-  prey_t <- seq(0, 1, length.out = n)
-  card_r <- (2 * radius + 1) ^ 2 - 1
-  p      <- 1 / card_r
+rcapso_mean_field_growth_rate <- function(pop_data, epsilon = 1, radius = 1) {
+  card <- (2 * radius + 1) ^ 2 - 1
+  p    <- 1 / card
 
-  (1 - prey_t) * (1 - (1 - p) ^ (epsilon * card_r * prey_t))
+  (1 - pop_data) * (1 - (1 - p) ^ (epsilon * card * pop_data))
 }

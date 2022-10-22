@@ -2,21 +2,21 @@
 % Please edit documentation in R/models.R
 \name{rcapso_mean_field_growth_rate}
 \alias{rcapso_mean_field_growth_rate}
-\title{Calculates the mean growth rate of a population}
+\title{Calculates the mean field growth rate of a population}
 \usage{
-rcapso_mean_field_growth_rate(n = 100, epsilon = 1, radius = 1)
+rcapso_mean_field_growth_rate(pop_data, epsilon = 1, radius = 1)
 }
 \arguments{
-\item{n}{The length of the output vector.}
+\item{pop_data}{A numeric vector containing populatin density data.}
 
 \item{epsilon}{The reproductive capacity of the population.}
 
 \item{radius}{The reproductive capacity of the population.}
 }
 \value{
-A numerical vector having the mean growth rate for n input values
-between 0 and 1 values.
+A numerical vector with the mean growth rate for every value in
+pop_data.
 }
 \description{
-Calculates the mean growth rate of a population
+Calculates the mean field growth rate of a population
 }
