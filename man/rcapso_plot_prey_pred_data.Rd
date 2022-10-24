@@ -10,7 +10,7 @@ rcapso_plot_prey_pred_data(
   title = "Prey-Predator time series",
   xlabel = "Time (Seasons)",
   ylabel = "Population density",
-  normalize = TRUE,
+  normalize = FALSE,
   lat_size = 262144
 )
 }

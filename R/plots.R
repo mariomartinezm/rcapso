@@ -15,9 +15,7 @@ rcapso_plot_prey_pred_data <- function(data, cols = c("Preys", "Predators"),
                                        title = "Prey-Predator time series",
                                        xlabel = "Time (Seasons)",
                                        ylabel = "Population density",
-                                       normalize = TRUE, lat_size = 262144) {
-  colors <- RColorBrewer::brewer.pal(12, "Paired")
-
+                                       normalize = FALSE, lat_size = 262144) {
   opar   <- graphics::par(no.readonly = TRUE)
   graphics::par()
 
@@ -29,15 +27,15 @@ rcapso_plot_prey_pred_data <- function(data, cols = c("Preys", "Predators"),
   }
 
   graphics::plot(index_set, data[, cols[1]], ylim = c(0, 1),
-                 type = "l", col = colors[4], lwd = 2,
+                 type = "l", col = 3, lwd = 2,
                  xlab = xlabel, ylab = ylabel)
   graphics::lines(index_set, data[, cols[2]],
-                  type = "l", col = colors[6], lwd = 2)
+                  type = "l", col = 2, lwd = 2)
 
+  graphics::grid(col = "gray", lty = 2, lwd = 1)
   graphics::title(main = title)
-
-  graphics::legend("topright", title = "Species:", cols, inset = 0.03,
-                   lty=c(1, 1), col = colors[c(4, 6)])
+  graphics::legend("topright", title = "Species:", cols,
+                   inset = 0.03, lty=c(1, 1), col = c(3, 2))
 
   graphics::par(opar)
 }
