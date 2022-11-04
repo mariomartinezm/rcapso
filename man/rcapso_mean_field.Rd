@@ -5,6 +5,7 @@
 \title{Gets the mean field approximation of the CAPSO model.}
 \usage{
 rcapso_mean_field(
+  use_reg = TRUE,
   num_iter = 100,
   psi0 = 1,
   phi0 = 0.01,
@@ -20,6 +21,8 @@ rcapso_mean_field(
 )
 }
 \arguments{
+\item{use_reg}{Indicates if regression terms should be used.}
+
 \item{num_iter}{The number of iterations to simulate.}
 
 \item{psi0}{The initial density of the prey population.}

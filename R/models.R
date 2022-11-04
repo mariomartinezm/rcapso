@@ -1,5 +1,6 @@
 #' Gets the mean field approximation of the CAPSO model.
 #'
+#' @param use_reg Indicates if regression terms should be used.
 #' @param num_iter The number of iterations to simulate.
 #' @param psi0 The initial density of the prey population.
 #' @param phi0 The initial density of the predator population.
@@ -16,7 +17,7 @@
 #' @return A 2-column data frame containing the time series of preys and
 #' predators.
 #' @export
-rcapso_mean_field <- function(num_iter = 100,
+rcapso_mean_field <- function(use_reg = TRUE, num_iter = 100,
                               psi0 = 1, phi0 = 0.01, alpha = 0.1,
                               ey = 1, ry = 1, ez = 1, rz = 1,
                               a = -1, b = 1, d = 1, e = 0) {
@@ -50,7 +51,12 @@ rcapso_mean_field <- function(num_iter = 100,
     phi[t + 1] <- phi_r - (b + a * psi_ic) * phi_r
 
     # Death Of Preys
-    psi_d <- psi_ic - (e + d * phi[t + 1]) * psi_ic
+    if (use_reg) {
+      psi_d <- psi_ic - (e + d * phi[t + 1]) * psi_ic
+    }
+    else {
+      psi_d <- psi_ic - phi[t + 1]
+    }
 
     # Reproduction of preys
     num_preys         <- card_mry * psi_d
