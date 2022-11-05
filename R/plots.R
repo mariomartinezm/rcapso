@@ -35,7 +35,7 @@ rcapso_plot_prey_pred_data <- function(data, cols = c("Preys", "Predators"),
   graphics::grid(col = "gray", lty = 2, lwd = 1)
   graphics::title(main = title)
   graphics::legend("topright", title = "Species:", cols,
-                   inset = 0.03, lty=c(1, 1), col = c(3, 2))
+                   inset = 0.03, lty = c(1, 1), col = c(3, 2))
 
   graphics::par(opar)
 }

@@ -53,8 +53,7 @@ rcapso_mean_field <- function(use_reg = TRUE, num_iter = 100,
     # Death Of Preys
     if (use_reg) {
       psi_d <- psi_ic - (e + d * phi[t + 1]) * psi_ic
-    }
-    else {
+    } else {
       psi_d <- psi_ic - phi[t + 1]
     }
 
