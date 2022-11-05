@@ -62,7 +62,7 @@ rcapso_plot_phase <- function(data, cols = c("Preys", "Predators"),
   opar   <- graphics::par(no.readonly = TRUE)
   graphics::par(ann = FALSE)
 
-  plot(data[, cols[1]], data[, cols[2]], type = "b")
+  plot(data[, cols[1]], data[, cols[2]], type = "l")
   graphics::title(main = title, xlab = cols[1], ylab = cols[2])
   graphics::grid(col = "gray", lty = 2, lwd = 1)
 
