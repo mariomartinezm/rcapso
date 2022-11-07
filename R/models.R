@@ -1,4 +1,4 @@
-#' Gets the mean field approximation of the CAPSO model.
+#' Gets the mean field approximation of the CaPso model.
 #'
 #' @param use_reg Indicates if regression terms should be used.
 #' @param num_iter The number of iterations to simulate.

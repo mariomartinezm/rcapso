@@ -2,7 +2,7 @@
 % Please edit documentation in R/models.R
 \name{rcapso_mean_field}
 \alias{rcapso_mean_field}
-\title{Gets the mean field approximation of the CAPSO model.}
+\title{Gets the mean field approximation of the CaPso model.}
 \usage{
 rcapso_mean_field(
   use_reg = TRUE,
@@ -52,5 +52,5 @@ A 2-column data frame containing the time series of preys and
 predators.
 }
 \description{
-Gets the mean field approximation of the CAPSO model.
+Gets the mean field approximation of the CaPso model.
 }
