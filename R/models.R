@@ -67,7 +67,32 @@ rcapso_mean_field <- function(use_reg = TRUE, num_iter = 100,
   data.frame(Preys = psi, Predators = phi, stringsAsFactors = FALSE)
 }
 
-rcapso_compute_mf <- function(rules, use_reg = TRUE, num_iter = 100,
+#' Computes the mean field approximation of the CaPso model given a set of
+#' rules.
+#'
+#' @param rules A character vector containing the transition functions to use
+#' in the computation of the mean field model. Defaults to
+#' c("ic", "rep_preds", "death_preds", "death_preys", "rep_preys")
+#' @param use_reg Indicates if regression terms should be used.
+#' @param num_iter The number of iterations to simulate.
+#' @param psi0 The initial density of the prey population.
+#' @param phi0 The initial density of the predator population.
+#' @param alpha The intraspecific competition coefficient.
+#' @param ey The reproductive capacity of preys.
+#' @param ry The radius of the prey's reproduction neighborhood.
+#' @param ez The reproductive capacity of predators.
+#' @param rz The radius of the predator's reproduction neighborhood.
+#' @param a The coefficient of the line that defines predator mortality.
+#' @param b The intercept of the line that defines predator mortality.
+#' @param d The coefficient of the line that defines prey mortality.
+#' @param e The intercept of the line that defines prey mortality.
+#'
+#' @return A 2-column data frame containing the time series of preys and
+#' predators.
+#' @export
+rcapso_compute_mf <- function(rules = c("ic", "rep_preds", "death_preds",
+                                        "death_preys", "rep_preys"),
+                              use_reg = TRUE, num_iter = 100,
                               psi0 = 1, phi0 = 0.01, alpha = 0.1,
                               ey = 1, ry = 1, ez = 1, rz = 1,
                               a = -1, b = 1, d = 1, e = 0) {
@@ -104,10 +129,28 @@ rcapso_compute_mf <- function(rules, use_reg = TRUE, num_iter = 100,
   data.frame(Preys = psi, Predators = phi, stringsAsFactors = FALSE)
 }
 
+#' Computes the mean field term for the intraspecific competition stage.
+#'
+#' @param density The initial density of the population of preys.
+#' @param alpha The intraspecific competition coefficient.
+#'
+#' @return The new size of the population after the intraspecific competition
+#' stage.
+#'
+#' @noRd
 rcapso_mf_ic <- function(density, alpha) {
   density - alpha * density ^ 2
 }
 
+#' Computes the mean field term for the reproduction stage.
+#'
+#' @param density The initial density of the population.
+#' @param epsilon The reproductive capacity of the population.
+#' @param radius The radius of the reproduction neighborhood.
+#'
+#' @return The new size of the population after the reproduction stage.
+#'
+#' @noRd
 rcapso_mf_reproduction <- function(density, epsilon, radius) {
   # Calculate the probability of an 'event' occurring in the neighboord of an
   # individual
@@ -120,10 +163,33 @@ rcapso_mf_reproduction <- function(density, epsilon, radius) {
   density + (1 - density) * (1 - (1 - p) ^ max_num_of_births)
 }
 
+#' Computes the mean field term for the death of predators.
+#'
+#' @param psi The initial density of the population of preys.
+#' @param phi The initial density of the population of predators.
+#' @param a The coefficient of the line that defines predator mortality.
+#' @param b The intercept of the line that defines predator mortality.
+#'
+#' @return The new size of the population of predators after the death of
+#' predators stage.
+#'
+#' @noRd
 rcapso_mf_death_of_predators <- function(psi, phi, a, b) {
   phi - (b + a * psi) * phi
 }
 
+#' Computes the mean field term for the death of preys.
+#'
+#' @param psi The density of the population of preys.
+#' @param phi The density of the population of predators.
+#' @param use_reg Indicates if regression terms should be used.
+#' @param d The coefficient of the line that defines prey mortality.
+#' @param e The intercept of the line that defines prey mortality.
+#'
+#' @return The new size of the population of preys after the death of preys
+#' stage.
+#'
+#' @noRd
 rcapso_mf_death_of_preys <- function(psi, phi, use_reg, d, e) {
     if (use_reg) {
       return(psi - (e + d * phi) * psi)
