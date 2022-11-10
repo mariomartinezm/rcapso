@@ -71,36 +71,29 @@ rcapso_compute_mf <- function(rules, use_reg = TRUE, num_iter = 100,
                               psi0 = 1, phi0 = 0.01, alpha = 0.1,
                               ey = 1, ry = 1, ez = 1, rz = 1,
                               a = -1, b = 1, d = 1, e = 0) {
-  functions <- c("ic" = rcapso_mf_ic,
-                 "rep_preds" = rcapso_mf_reproduction,
-                 "death_preds" = rcapso_mf_death_of_predators,
-                 "death_preys" = rcapso_mf_death_of_preys,
-                 "rep_preys" = rcapso_mf_reproduction)
 
   index_set <- seq(from = 1, to = num_iter, by = 1)
+
   psi       <- numeric(length(index_set))
   psi[1]    <- psi0
   psi_t     <- psi[1]
+
   phi       <- numeric(length(index_set))
   phi[1]    <- phi0
   phi_t     <- phi[1]
 
   for (t in seq_len(length(index_set) - 1)) {
     for (f in rules) {
-      if (f %in% names(functions)) {
-        if (f == "ic") {
-          psi_t <- rcapso_mf_ic(psi_t, alpha)
-        } else if (f == "rep_preds") {
-          phi_t <- rcapso_mf_reproduction(phi_t, ez, rz)
-        } else if (f == "death_preds") {
-          phi_t <- rcapso_mf_death_of_predators(psi_t, phi_t, a, b)
-        } else if (f == "death_preys") {
-          psi_t <- rcapso_mf_death_of_preys(psi_t, phi_t, use_reg, d, e)
-        } else if (f == "rep_preys") {
-          psi_t <- rcapso_mf_reproduction(psi_t, ey, ry)
-        }
-      } else {
-        print(paste("Invalid transition rule: ", f))
+      if (f == "ic") {
+        psi_t <- rcapso_mf_ic(psi_t, alpha)
+      } else if (f == "rep_preds") {
+        phi_t <- rcapso_mf_reproduction(phi_t, ez, rz)
+      } else if (f == "death_preds") {
+        phi_t <- rcapso_mf_death_of_predators(psi_t, phi_t, a, b)
+      } else if (f == "death_preys") {
+        psi_t <- rcapso_mf_death_of_preys(psi_t, phi_t, use_reg, d, e)
+      } else if (f == "rep_preys") {
+        psi_t <- rcapso_mf_reproduction(psi_t, ey, ry)
       }
     }
 
