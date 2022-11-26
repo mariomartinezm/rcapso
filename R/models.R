@@ -115,6 +115,8 @@ rcapso_compute_mf <- function(rules = c("ic", "rep_preds", "death_preds",
         phi_t <- rcapso_mf_reproduction(phi_t, ez, rz)
       } else if (f == "death_preds") {
         phi_t <- rcapso_mf_death_of_predators(psi_t, phi_t, a, b)
+      } else if (f == "death_preds_adj") {
+        phi_t <- rcapso_mf_death_of_predators_adj(psi_t, phi_t, phi[t])
       } else if (f == "death_preys") {
         psi_t <- rcapso_mf_death_of_preys(psi_t, phi_t, use_reg, d, e)
       } else if (f == "rep_preys") {
@@ -176,6 +178,22 @@ rcapso_mf_reproduction <- function(density, epsilon, radius) {
 #' @noRd
 rcapso_mf_death_of_predators <- function(psi, phi, a, b) {
   phi - (b + a * psi) * phi
+}
+
+#' Computes the mean field term for the death of predators (adjusted).
+#'
+#' @param psi The initial density of the population of preys.
+#' @param phi The initial density of the population of predators after
+#' reproduction.
+#' @param phi_prev The density of the population of predators before
+#' reproduction.
+#'
+#' @return The new size of the population of predators after the death of
+#' predators stage.
+#'
+#' @noRd
+rcapso_mf_death_of_predators_adj <- function(psi, phi_r, phi_t) {
+    phi_r - phi_t - (1 - psi) * (phi_r - phi_t)
 }
 
 #' Computes the mean field term for the death of preys.
