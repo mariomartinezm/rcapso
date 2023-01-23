@@ -232,3 +232,45 @@ rcapso_mean_field_growth_rate <- function(pop_data, epsilon = 1, radius = 1) {
 
   (1 - pop_data) * (1 - (1 - p) ^ (epsilon * card * pop_data))
 }
+
+#' Adjusts the parameters of the mean field model using simulation data
+#'
+#' @param df A data frame containing normalize data of a CaPso simulation.
+#' @param transient_length The length (in seasons) of the transient.
+#'
+#' @return A numerical vector containing the adjusted parameters of the mean
+#' field model.
+#'
+#' @export
+rcapso_adjust_parameters <- function(df, transient_length = 1000) {
+  # Remove transient
+  data <- df %>% dplyr::slice_tail(n = 9000)
+
+  # Estimate a and b
+  fit <- stats::lm(preds_dp ~ preys_dbpd, data = data)
+  a <- summary(fit)$coefficients["preys_dbpd", "Estimate"]
+  b <- summary(fit)$coefficients["(Intercept)", "Estimate"]
+
+  # Estimate d and e
+  fit <- stats::lm(preys_dp ~ preds_dbpd,
+          data = data)
+  d <- summary(fit)$coefficients["preds_dbpd", "Estimate"]
+  e <- summary(fit)$coefficients["(Intercept)", "Estimate"]
+
+  # Estimate epsilon_Y
+  radius <- 1
+  card   <- (2 * radius + 1) ^ 2 - 1
+  p      <- 1 / card
+  f      <- PreyBirthRate ~ (1 - preys_dbr) * (1 - (1 - p) ^
+                                              (epsilon * card * preys_dbr))
+  fit <- stats::nls(f, data = data, start = list(epsilon = 1))
+  ey  <- stats::coef(fit)[1]
+
+  # Estimate epsilon_Z
+  f   <- PredatorBirthRate ~ (1 - preds_dbr) * (1 - (1 - p) ^
+                                               (epsilon * card * preds_dbr))
+  fit <- stats::nls(f, data = data, start = list(epsilon = 2))
+  ez  <- stats::coef(fit)[1]
+
+  stats::setNames(c(a, b, d, e, ey, ez), c("a", "b", "d", "e", "ey", "ez"))
+}
