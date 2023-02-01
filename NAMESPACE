@@ -3,7 +3,6 @@
 export("%>%")
 export(rcapso_adjust_parameters)
 export(rcapso_compute_mf)
-export(rcapso_mean_field)
 export(rcapso_mean_field_growth_rate)
 export(rcapso_plot_fourier_spectrum)
 export(rcapso_plot_phase)
